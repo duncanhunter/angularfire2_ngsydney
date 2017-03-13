@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AngularFireModule, AuthMethods, AuthProviders } from 'angularfire2';
 import { AppComponent } from './app.component';
+import { MaterialModule } from '@angular/material';
 
 const firebaseConfig = {
     apiKey: 'AIzaSyAN7I4tEdPXG91pTr2bnt7pCrk1Or9tsMg',
@@ -26,7 +27,8 @@ const firebaseConfig = {
     BrowserModule,
     FormsModule,
     HttpModule,
-    AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig)
+    AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig),
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
