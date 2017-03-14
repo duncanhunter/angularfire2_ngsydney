@@ -13,32 +13,21 @@ export class VoteComponent implements OnInit {
   vote: boolean;
   authState: FirebaseAuthState;
 
-  constructor(private af: AngularFire) {
-    // this.af.auth.subscribe(authState => {
-    //   this.authState = authState;
-    //   if (authState) {
-    //     this.getVote();
-    //     this.getTotalVotes();
-    //   }
-    // });
-  }
+  constructor(private af: AngularFire) { }
 
   ngOnInit() {
-    this.af.auth.subscribe(authState => {
-      this.authState = authState;
-      if (authState) {
-        this.getVote();
-        this.getTotalVotes();
-      }
-    });
+    this.checkIfAuthenticated();
   }
 
-  getVote() {
-    this.vote$ = this.af.database.object(`votes/${this.authState.uid}`);
-  }
-
-  getTotalVotes() {
-    this.totalVotes$ = this.af.database.object(`totalVotes`);
+  checkIfAuthenticated() {
+    this.af.auth
+      .subscribe(authState => {
+        this.authState = authState;
+        if (authState) {
+          this.getVote();
+          this.getTotalVotes();
+        }
+      });
   }
 
   anonymousLogin() {
@@ -46,10 +35,16 @@ export class VoteComponent implements OnInit {
       .then(authState => this.authState = authState);
   }
 
+  getTotalVotes() {
+    this.totalVotes$ = this.af.database.object(`totalVotes`);
+  }
+
+  getVote() {
+    this.vote$ = this.af.database.object(`votes/${this.authState.uid}`);
+  }
+
   submitVote(vote: boolean | string) {
     this.af.database.object(`votes/${this.authState.uid}`).set(vote);
   }
-
-
 
 }
