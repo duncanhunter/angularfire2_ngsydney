@@ -1,8 +1,8 @@
 <md-card>
-  <p>Will you use Angular V2 or V4 in your next project?</p>
+  <h2>Will you use Angular V2 or V4 in your next project?</h2>
   <button md-raised-button *ngIf="!authState" (click)="anonymousLogin()">Login anonymously to vote</button>
   <div *ngIf="vote$ | async; let voted">
-    <h1>Number of votes {{(votes$ | async)?.numChildren()}}</h1>
+    <h3>Number of votes {{(totalVotes$ | async)?.$value}}</h3>
     <button md-raised-button [disabled]="voted.$value === true" (click)="submitVote(true)">YES</button>
     <button md-raised-button [disabled]="voted.$value === false" (click)="submitVote(false)">NO</button>
   </div>

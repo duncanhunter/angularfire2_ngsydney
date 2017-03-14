@@ -1,4 +1,4 @@
-import { appRoutes } from './app.routes';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -7,7 +7,6 @@ import { AngularFireModule, AuthMethods, AuthProviders } from 'angularfire2';
 import { AppComponent } from './app.component';
 import { MaterialModule } from '@angular/material';
 import { VoteComponent } from './vote/vote.component';
-import { VoterListComponent } from './voter-list/voter-list.component';
 import { RouterModule } from '@angular/router';
 import 'hammerjs';
 
@@ -27,8 +26,7 @@ const firebaseConfig = {
 @NgModule({
   declarations: [
     AppComponent,
-    VoteComponent,
-    VoterListComponent
+    VoteComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +34,7 @@ const firebaseConfig = {
     HttpModule,
     AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig),
     MaterialModule,
-    RouterModule.forRoot(appRoutes)
+    FlexLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]

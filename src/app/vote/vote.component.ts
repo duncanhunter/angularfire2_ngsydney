@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFire, FirebaseAuthState, FirebaseListObservable } from 'angularfire2';
+import { AngularFire, FirebaseAuthState, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
@@ -8,32 +8,42 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./vote.component.css']
 })
 export class VoteComponent implements OnInit {
-  vote$: Observable<any[]>;
-  votes$: Observable<any[]>;
+  totalVotes$: FirebaseObjectObservable<number>;
+  vote$: FirebaseObjectObservable<boolean>;
   vote: boolean;
   authState: FirebaseAuthState;
 
   constructor(private af: AngularFire) {
-    this.af.auth.subscribe(authState => {
-      this.authState = authState;
-      if (authState.uid) { this.getVote(); }
-    });
+    // this.af.auth.subscribe(authState => {
+    //   this.authState = authState;
+    //   if (authState) {
+    //     this.getVote();
+    //     this.getTotalVotes();
+    //   }
+    // });
   }
 
   ngOnInit() {
+    this.af.auth.subscribe(authState => {
+      this.authState = authState;
+      if (authState) {
+        this.getVote();
+        this.getTotalVotes();
+      }
+    });
   }
 
   getVote() {
     this.vote$ = this.af.database.object(`votes/${this.authState.uid}`);
-    this.votes$ = this.af.database.object(`votes`, { preserveSnapshot: true });
+  }
+
+  getTotalVotes() {
+    this.totalVotes$ = this.af.database.object(`totalVotes`);
   }
 
   anonymousLogin() {
     this.af.auth.login()
-      .then(authState => {
-        this.authState = authState;
-        this.submitVote('');
-      });
+      .then(authState => this.authState = authState);
   }
 
   submitVote(vote: boolean | string) {

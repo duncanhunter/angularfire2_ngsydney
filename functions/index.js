@@ -1,8 +1,5 @@
 var functions = require('firebase-functions');
-
-// // Start writing Firebase Functions
-// // https://firebase.google.com/functions/write-firebase-functions
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
-// })
+exports.countVotes = functions.database.ref('/votes')
+    .onWrite(function (event) {
+    return event.data.ref.parent.child("/totalVotes").set(event.data.numChildren());
+});
