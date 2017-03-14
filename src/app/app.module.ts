@@ -12,16 +12,16 @@ import { RouterModule } from '@angular/router';
 import 'hammerjs';
 
 const firebaseConfig = {
-    apiKey: 'AIzaSyAN7I4tEdPXG91pTr2bnt7pCrk1Or9tsMg',
-    authDomain: 'angularfire-ngsydney.firebaseapp.com',
-    databaseURL: 'https://angularfire-ngsydney.firebaseio.com',
-    storageBucket: 'angularfire-ngsydney.appspot.com',
-    messagingSenderId: '181898057682'
+    apiKey: 'AIzaSyCVTttrkpRDEMUG1fF2rzu3LEwNZ_SL8w4',
+    authDomain: 'angularfire-sydney.firebaseapp.com',
+    databaseURL: 'https://angularfire-sydney.firebaseio.com',
+    storageBucket: 'angularfire-sydney.appspot.com',
+    messagingSenderId: '574024598150'
   };
 
   const firebaseAuthConfig = {
-    providers: AuthProviders.Anonymous,
-    methods: AuthMethods.Anonymous
+    method: AuthMethods.Anonymous,
+    provider: AuthProviders.Anonymous
   };
 
 @NgModule({
