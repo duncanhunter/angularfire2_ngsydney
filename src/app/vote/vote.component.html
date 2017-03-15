@@ -1,9 +1,14 @@
 <md-card>
-  <h2>Will you use Angular V2 or V4 in your next project?</h2>
+  <h2>Which version of Angular will you use next?</h2>
   <button md-raised-button color="primary" *ngIf="!authState" (click)="anonymousLogin()">Login anonymously to vote</button>
-  <div *ngIf="vote$ | async; let voted">
-    <h3>Number of votes {{(totalVotes$ | async)?.$value}}</h3>
-    <button md-raised-button [disabled]="voted.$value === true" (click)="submitVote(true)">YES</button>
-    <button md-raised-button [disabled]="voted.$value === false" (click)="submitVote(false)">NO</button>
+ 
+  <div *ngIf="vote$ | async; let voted;">
+    <button md-raised-button [disabled]="voted.$value === 'v4'" (click)="submitVote('v4')">v4</button>
+    <button md-raised-button [disabled]="voted.$value === 'v2'" (click)="submitVote('v2')">v2</button>
+  </div>
+  
+  <div *ngIf="voteCount$ | async; let voteCount">
+    <p>v4 = {{voteCount.v4}} / {{voteCount.total}}</p>
+    <p>v2 = {{voteCount.v2}} / {{voteCount.total}}</p>
   </div>
 </md-card>

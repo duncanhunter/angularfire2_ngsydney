@@ -8,9 +8,8 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./vote.component.css']
 })
 export class VoteComponent implements OnInit {
-  totalVotes$: FirebaseObjectObservable<number>;
-  vote$: FirebaseObjectObservable<boolean>;
-  vote: boolean;
+  voteCount$: FirebaseObjectObservable<any>;
+  vote$: FirebaseObjectObservable<string>;
   authState: FirebaseAuthState;
 
   constructor(private af: AngularFire) { }
@@ -36,14 +35,14 @@ export class VoteComponent implements OnInit {
   }
 
   getTotalVotes() {
-    this.totalVotes$ = this.af.database.object(`totalVotes`);
+    this.voteCount$ = this.af.database.object(`voteCount`);
   }
 
   getVote() {
     this.vote$ = this.af.database.object(`votes/${this.authState.uid}`);
   }
 
-  submitVote(vote: boolean | string) {
+  submitVote(vote: string) {
     this.af.database.object(`votes/${this.authState.uid}`).set(vote);
   }
 
