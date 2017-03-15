@@ -7,7 +7,8 @@
       }
     },
     "voteCount": {
-      ".read": "auth != null"
+      ".read": "auth != null",
+      ".write": "false"
     }
   }
 }
